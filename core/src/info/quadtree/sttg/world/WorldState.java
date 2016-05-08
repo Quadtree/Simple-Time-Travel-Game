@@ -1,4 +1,4 @@
-package info.quadtree.sttg.macroworld;
+package info.quadtree.sttg.world;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  * @author quadtree
  *
  */
-public class MacroWorldState {
+public class WorldState {
 	public static final long TICKS_PER_DAY = 864000;
 	public static final long TICKS_PER_YEAR = 315360000;
 
@@ -20,6 +20,8 @@ public class MacroWorldState {
 	 * 315,360,000 ticks per year.
 	 */
 	long currentTick;
+
+	List<List<TerrainType>> terrain;
 
 	List<Unit> units;
 }
