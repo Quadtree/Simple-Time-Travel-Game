@@ -19,12 +19,12 @@ public class STTG extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 
-		fnt = new BitmapFont(Gdx.files.internal("mono.fnt"), Gdx.files.internal("mono.png"), false);
+		fnt = new BitmapFont(Gdx.files.internal("mono-18.fnt"), Gdx.files.internal("mono-18.png"), false);
 	}
 
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(img, 30, 0);
@@ -32,7 +32,7 @@ public class STTG extends ApplicationAdapter {
 		batch.setColor(Color.BROWN);
 
 		fnt.setColor(Color.CYAN);
-		fnt.draw(batch, "Inv?", 50, 300);
+		fnt.draw(batch, "Inv? ≈≈≈~≈", 50, 300);
 
 		batch.end();
 	}
