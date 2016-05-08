@@ -1,5 +1,12 @@
 package info.quadtree.sttg.macroworld;
 
+/**
+ * The current state of the world, in macro terms. Typically multiple world
+ * states will be kept around, for rewinding
+ * 
+ * @author quadtree
+ *
+ */
 public class MacroWorldState {
 	public static final long TICKS_PER_YEAR = 315360000;
 
