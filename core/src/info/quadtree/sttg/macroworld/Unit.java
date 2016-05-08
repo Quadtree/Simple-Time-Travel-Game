@@ -1,5 +1,5 @@
 package info.quadtree.sttg.macroworld;
 
-public class Unit {
+public abstract class Unit {
 
 }
