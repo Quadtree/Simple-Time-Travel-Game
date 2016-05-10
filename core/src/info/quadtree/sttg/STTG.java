@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import info.quadtree.sttg.world.DeterministicRNG;
+import info.quadtree.sttg.world.FixedDRNG;
+
 public class STTG extends ApplicationAdapter {
 	SpriteBatch batch;
 	BitmapFont fnt;
@@ -20,6 +23,15 @@ public class STTG extends ApplicationAdapter {
 		img = new Texture("badlogic.jpg");
 
 		fnt = new BitmapFont(Gdx.files.internal("mono-18.fnt"), Gdx.files.internal("mono-18.png"), false);
+
+		DeterministicRNG rng = new FixedDRNG();
+
+		for (int i = 0; i < 1000; ++i) {
+			System.err.println(i + " = " + rng.randomInt(16, i));
+		}
+
+		// System.err.println(NameGenerator.getInstance().generateName(Gender.Female,
+		// new FixedDRNG()));
 	}
 
 	@Override
