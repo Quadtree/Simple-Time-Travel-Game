@@ -8,11 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import info.quadtree.sttg.world.DeterministicRNG;
-import info.quadtree.sttg.world.DeterministicRNGDecorator;
-import info.quadtree.sttg.world.FixedDRNG;
-import info.quadtree.sttg.world.Gender;
-import info.quadtree.sttg.world.NameGenerator;
 import info.quadtree.sttg.world.WorldState;
 
 public class STTG extends ApplicationAdapter {
@@ -28,13 +23,15 @@ public class STTG extends ApplicationAdapter {
 
 		fnt = new BitmapFont(Gdx.files.internal("mono-18.fnt"), Gdx.files.internal("mono-18.png"), false);
 
-		DeterministicRNG rng = new DeterministicRNGDecorator(new FixedDRNG(), 10);
+		// DeterministicRNG rng = new DeterministicRNGDecorator(new FixedDRNG(),
+		// 10);
 
 		// for (int i = 0; i < 1000; ++i) {
 		// System.err.println(i + " = " + rng.randomInt(16, i));
 		// }
 
-		System.err.println(NameGenerator.getInstance().generateName(Gender.Female, rng));
+		// System.err.println(NameGenerator.getInstance().generateName(Gender.Female,
+		// rng));
 
 		WorldState tws = new WorldState(0);
 	}

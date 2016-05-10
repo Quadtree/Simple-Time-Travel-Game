@@ -23,7 +23,7 @@ public class Person extends Unit {
 		gender = world.randomInt(2, location, baseSeed) == 0 ? Gender.Female : Gender.Male;
 
 		firstName = NameGenerator.getInstance().generateName(gender, new DeterministicRNGDecorator(world, location, baseSeed));
-		lastName = NameGenerator.getInstance().generateName(Gender.Male, new DeterministicRNGDecorator(world, location, baseSeed));
+		lastName = NameGenerator.getInstance().generateName(Gender.Male, new DeterministicRNGDecorator(world, location, baseSeed + 2348978));
 
 		System.out.println(firstName + " " + lastName + " created at " + location);
 	}

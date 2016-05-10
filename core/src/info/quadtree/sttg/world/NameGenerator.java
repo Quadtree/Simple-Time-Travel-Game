@@ -36,8 +36,6 @@ public class NameGenerator {
 	public String generateName(Gender gender, DeterministicRNG rng) {
 		long seed = rng.randomLong(0);
 
-		System.err.println("seed=" + seed);
-
 		MersenneTwister rand = new MersenneTwister(seed);
 
 		String name = "";
