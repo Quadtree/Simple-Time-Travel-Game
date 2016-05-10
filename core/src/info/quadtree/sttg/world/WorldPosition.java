@@ -8,4 +8,9 @@ public class WorldPosition {
 		this.x = x;
 		this.y = y;
 	}
+
+	@Override
+	public String toString() {
+		return "WorldPosition [x=" + x + ", y=" + y + "]";
+	}
 }

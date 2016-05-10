@@ -39,9 +39,19 @@ public class WorldState implements DeterministicRNG {
 
 		terrain = new ArrayList<>();
 		for (int x = 0; x < WORLD_SIZE; ++x) {
-			terrain.set(x, new ArrayList<TerrainType>());
+			terrain.add(new ArrayList<TerrainType>());
 			for (int y = 0; y < WORLD_SIZE; ++y) {
-				terrain.get(x).set(y, randomInt(4, x + y * WORLD_SIZE) == 0 ? TerrainType.GRASS : TerrainType.GRASS2);
+				terrain.get(x).add(randomInt(4, x + y * WORLD_SIZE) == 0 ? TerrainType.GRASS : TerrainType.GRASS2);
+			}
+		}
+
+		units = new ArrayList<Unit>();
+
+		for (int i = 0; i < 2; ++i) {
+			for (int j = 0; j < 50; ++j) {
+				Person p = new Person(this, new WorldPosition(i * 400 + 100 + rng.randomInt(70, i * 100000 + j * 100) - 35, 256 + rng.randomInt(70, i * 100000 + j * 100) - 35));
+
+				units.add(p);
 			}
 		}
 	}
@@ -57,8 +67,18 @@ public class WorldState implements DeterministicRNG {
 	}
 
 	@Override
+	public int randomInt(int maxExclusive, WorldPosition pos, long additionalSeedMaterial) {
+		return rng.randomInt(maxExclusive, pos, additionalSeedMaterial ^ baseSeed ^ currentTick);
+	}
+
+	@Override
 	public long randomLong(long additionalSeedMaterial) {
-		return rng.randomLong(additionalSeedMaterial);
+		return rng.randomLong(additionalSeedMaterial ^ baseSeed ^ currentTick);
+	}
+
+	@Override
+	public long randomLong(WorldPosition pos, long additionalSeedMaterial) {
+		return rng.randomLong(pos, additionalSeedMaterial ^ baseSeed ^ currentTick);
 	}
 
 }

@@ -13,6 +13,7 @@ import info.quadtree.sttg.world.DeterministicRNGDecorator;
 import info.quadtree.sttg.world.FixedDRNG;
 import info.quadtree.sttg.world.Gender;
 import info.quadtree.sttg.world.NameGenerator;
+import info.quadtree.sttg.world.WorldState;
 
 public class STTG extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -34,6 +35,8 @@ public class STTG extends ApplicationAdapter {
 		// }
 
 		System.err.println(NameGenerator.getInstance().generateName(Gender.Female, rng));
+
+		WorldState tws = new WorldState(0);
 	}
 
 	@Override
