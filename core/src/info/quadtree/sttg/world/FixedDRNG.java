@@ -1,10 +1,6 @@
 package info.quadtree.sttg.world;
 
-import org.apache.commons.math3.random.MersenneTwister;
-
 public class FixedDRNG implements DeterministicRNG {
-	MersenneTwister rand = new MersenneTwister();
-
 	/*
 	 * (non-Javadoc)
 	 *
@@ -23,11 +19,8 @@ public class FixedDRNG implements DeterministicRNG {
 	 */
 	@Override
 	public int randomInt(int maxExclusive, long additionalSeedMaterial) {
-		synchronized (rand) {
-			rand.setSeed(additionalSeedMaterial);
-			int ret = rand.nextInt(maxExclusive);
-			return ret;
-		}
+		int ret = (int) (xorshift64s(additionalSeedMaterial) % maxExclusive);
+		return ret;
 	}
 
 	@Override
@@ -37,15 +30,20 @@ public class FixedDRNG implements DeterministicRNG {
 
 	@Override
 	public long randomLong(long additionalSeedMaterial) {
-		synchronized (rand) {
-			rand.setSeed(additionalSeedMaterial);
-			long ret = rand.nextLong();
-			return ret;
-		}
+		long ret = xorshift64s(additionalSeedMaterial);
+		return ret;
 	}
 
 	@Override
 	public long randomLong(WorldPosition pos, long additionalSeedMaterial) {
 		return randomLong((pos.x + pos.y * WorldState.WORLD_SIZE) ^ additionalSeedMaterial);
+	}
+
+	public long xorshift64s(long seed) {
+		seed ^= (seed << 13);
+		seed ^= (seed >>> 7);
+		seed ^= (seed << 17);
+
+		return seed;
 	}
 }
