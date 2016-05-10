@@ -3,6 +3,8 @@ package info.quadtree.sttg.world;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math3.random.MersenneTwister;
+
 /**
  * The current state of the world, in macro terms. Typically multiple world
  * states will be kept around, for rewinding
@@ -37,11 +39,13 @@ public class WorldState implements DeterministicRNG {
 
 		rng = new FixedDRNG();
 
+		MersenneTwister localRng = new MersenneTwister(rng.randomLong(0));
+
 		terrain = new ArrayList<>();
 		for (int x = 0; x < WORLD_SIZE; ++x) {
 			terrain.add(new ArrayList<TerrainType>());
 			for (int y = 0; y < WORLD_SIZE; ++y) {
-				terrain.get(x).add(randomInt(4, x + y * WORLD_SIZE) == 0 ? TerrainType.GRASS : TerrainType.GRASS2);
+				terrain.get(x).add(localRng.nextInt(4) == 0 ? TerrainType.GRASS : TerrainType.GRASS2);
 			}
 		}
 

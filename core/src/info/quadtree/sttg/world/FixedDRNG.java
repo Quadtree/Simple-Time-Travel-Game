@@ -24,7 +24,7 @@ public class FixedDRNG implements DeterministicRNG {
 	@Override
 	public int randomInt(int maxExclusive, long additionalSeedMaterial) {
 		synchronized (rand) {
-			// rand.setSeed(additionalSeedMaterial);
+			rand.setSeed(additionalSeedMaterial);
 			int ret = rand.nextInt(maxExclusive);
 			return ret;
 		}
@@ -38,7 +38,7 @@ public class FixedDRNG implements DeterministicRNG {
 	@Override
 	public long randomLong(long additionalSeedMaterial) {
 		synchronized (rand) {
-			// rand.setSeed(additionalSeedMaterial);
+			rand.setSeed(additionalSeedMaterial);
 			long ret = rand.nextLong();
 			return ret;
 		}
