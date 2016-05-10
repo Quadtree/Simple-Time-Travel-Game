@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.math3.random.MersenneTwister;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
@@ -32,13 +34,18 @@ public class NameGenerator {
 	}
 
 	public String generateName(Gender gender, DeterministicRNG rng) {
-		long k = 0;
+		long seed = rng.randomLong(0);
+
+		System.err.println("seed=" + seed);
+
+		MersenneTwister rand = new MersenneTwister(seed);
 
 		String name = "";
 
 		while (true) {
-			while (rng.randomInt(4, k++) != 0) {
-				name += syllables.get(rng.randomInt(syllables.size(), k++));
+			name = "";
+			while (rand.nextInt(4) != 0) {
+				name += syllables.get(rand.nextInt(syllables.size()));
 			}
 
 			if (name.length() > 8 || name.length() < 3)
@@ -53,12 +60,9 @@ public class NameGenerator {
 
 			if (nameGender == gender)
 				break;
-
-			if (k > 1000000)
-				throw new RuntimeException("Unable to generate name?");
 		}
 
-		return name.substring(0, 1).toLowerCase() + name.substring(1);
+		return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
 	}
 
 	private void loadSyllables(FileHandle fh) throws IOException {
@@ -74,7 +78,7 @@ public class NameGenerator {
 		vowels.add('U');
 
 		while ((line = r.readLine()) != null) {
-			String name = line.split("\\s")[0];
+			String name = line.split("\\s")[0].toUpperCase();
 
 			for (int i = 0; i < name.length(); ++i) {
 

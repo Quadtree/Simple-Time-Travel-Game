@@ -26,4 +26,9 @@ public class DeterministicRNGDecorator implements DeterministicRNG {
 		return rng.randomInt(maxExclusive, additionalSeedMaterial ^ this.additionalSeedMaterial);
 	}
 
+	@Override
+	public long randomLong(long additionalSeedMaterial) {
+		return rng.randomLong(this.additionalSeedMaterial ^ additionalSeedMaterial);
+	}
+
 }

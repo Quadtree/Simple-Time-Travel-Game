@@ -9,7 +9,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import info.quadtree.sttg.world.DeterministicRNG;
+import info.quadtree.sttg.world.DeterministicRNGDecorator;
 import info.quadtree.sttg.world.FixedDRNG;
+import info.quadtree.sttg.world.Gender;
+import info.quadtree.sttg.world.NameGenerator;
 
 public class STTG extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -24,14 +27,13 @@ public class STTG extends ApplicationAdapter {
 
 		fnt = new BitmapFont(Gdx.files.internal("mono-18.fnt"), Gdx.files.internal("mono-18.png"), false);
 
-		DeterministicRNG rng = new FixedDRNG();
+		DeterministicRNG rng = new DeterministicRNGDecorator(new FixedDRNG(), 10);
 
-		for (int i = 0; i < 1000; ++i) {
-			System.err.println(i + " = " + rng.randomInt(16, i));
-		}
+		// for (int i = 0; i < 1000; ++i) {
+		// System.err.println(i + " = " + rng.randomInt(16, i));
+		// }
 
-		// System.err.println(NameGenerator.getInstance().generateName(Gender.Female,
-		// new FixedDRNG()));
+		System.err.println(NameGenerator.getInstance().generateName(Gender.Female, rng));
 	}
 
 	@Override

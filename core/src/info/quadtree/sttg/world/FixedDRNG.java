@@ -29,4 +29,14 @@ public class FixedDRNG implements DeterministicRNG {
 			return ret;
 		}
 	}
+
+	@Override
+	public long randomLong(long additionalSeedMaterial) {
+		synchronized (rand) {
+			rand.setSeed(additionalSeedMaterial);
+			System.err.println("THE SEED=" + additionalSeedMaterial);
+			long ret = rand.nextLong();
+			return ret;
+		}
+	}
 }

@@ -6,4 +6,5 @@ public interface DeterministicRNG {
 
 	int randomInt(int maxExclusive, long additionalSeedMaterial);
 
+	long randomLong(long additionalSeedMaterial);
 }

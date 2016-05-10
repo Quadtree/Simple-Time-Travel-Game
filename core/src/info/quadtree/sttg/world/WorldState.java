@@ -56,4 +56,9 @@ public class WorldState implements DeterministicRNG {
 		return rng.randomInt(maxExclusive, additionalSeedMaterial ^ baseSeed ^ currentTick);
 	}
 
+	@Override
+	public long randomLong(long additionalSeedMaterial) {
+		return rng.randomLong(additionalSeedMaterial);
+	}
+
 }
