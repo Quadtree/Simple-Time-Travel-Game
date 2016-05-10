@@ -33,7 +33,13 @@ public class STTG extends ApplicationAdapter {
 		// System.err.println(NameGenerator.getInstance().generateName(Gender.Female,
 		// rng));
 
+		long miliTime = System.currentTimeMillis();
+
 		WorldState tws = new WorldState(0);
+
+		long endTime = System.currentTimeMillis();
+
+		System.err.println("Startup in: " + (endTime - miliTime) + "ms");
 	}
 
 	@Override
