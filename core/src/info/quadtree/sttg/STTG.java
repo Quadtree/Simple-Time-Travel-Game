@@ -86,6 +86,17 @@ public class STTG extends ApplicationAdapter implements InputProcessor {
 			traveller.moveTo(traveller.getLocation().add(new WorldPosition(0, 1)));
 		}
 
+		long currentTick = currentWorldState.getCurrentTick();
+
+		if (keycode == Keys.LEFT_BRACKET) {
+			currentWorldState = new WorldState(0);
+			currentWorldState.seek(currentTick - WorldState.TICKS_PER_YEAR);
+			currentWorldState.addThing(traveller);
+		}
+		if (keycode == Keys.RIGHT_BRACKET) {
+			currentWorldState.seek(currentTick + WorldState.TICKS_PER_YEAR);
+		}
+
 		return true;
 	}
 
