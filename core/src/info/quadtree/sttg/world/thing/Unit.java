@@ -36,7 +36,7 @@ public abstract class Unit extends Thing {
 	public void destroyed() {
 		super.destroyed();
 
-		System.err.println(getName() + " has died at age " + getAgeYears());
+		// System.err.println(getName() + " has died at age " + getAgeYears());
 	}
 
 	protected int getAgeOfAdulthoodYears() {

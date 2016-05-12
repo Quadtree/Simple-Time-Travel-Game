@@ -30,7 +30,8 @@ public class Person extends Unit {
 		firstName = NameGenerator.getInstance().generateName(gender, world.randomLong(location, baseSeed));
 		lastName = NameGenerator.getInstance().generateName(Gender.Male, world.randomLong(location, baseSeed) + 3289843);
 
-		System.out.println(firstName + " " + lastName + " created at " + location);
+		// System.out.println(firstName + " " + lastName + " created at " +
+		// location);
 
 		maxHealth = 0.001;
 		health = 0.001;

@@ -5,9 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
-
-import org.apache.commons.math3.random.MersenneTwister;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -34,7 +33,7 @@ public class NameGenerator {
 	}
 
 	public String generateName(Gender gender, long rngSeed) {
-		MersenneTwister rand = new MersenneTwister(rngSeed);
+		Random rand = new Random(rngSeed);
 
 		String name = "";
 
