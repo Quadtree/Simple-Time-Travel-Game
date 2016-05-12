@@ -11,6 +11,14 @@ public class WorldPosition {
 		this.y = y;
 	}
 
+	public WorldPosition add(WorldPosition other) {
+		return new WorldPosition(x + other.x, y + other.y);
+	}
+
+	public int getManhattanDistanceTo(WorldPosition pos) {
+		return Math.abs(x - pos.x) + Math.abs(y - pos.y);
+	}
+
 	public boolean isOnScreen() {
 		return x >= 0 && y >= 0 && x < STTG.CAMERA_WIDTH && y < STTG.CAMERA_HEIGHT;
 	}

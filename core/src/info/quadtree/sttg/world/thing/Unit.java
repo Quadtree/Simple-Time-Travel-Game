@@ -8,6 +8,8 @@ public abstract class Unit extends Thing {
 		Combat, Crafting, Gathering, Science, Social
 	}
 
+	int actionCooldown;
+
 	protected long age;
 
 	protected long baseSeed;
@@ -15,15 +17,19 @@ public abstract class Unit extends Thing {
 	double energy;
 
 	double food;
-
 	double health;
 	double maxHealth;
 	long nextStatChangeAge;
 	double temperature;
+
 	double water;
 
 	public Unit(WorldState worldState, WorldPosition location) {
 		super(worldState, location);
+	}
+
+	public boolean canAct() {
+		return actionCooldown <= 0;
 	}
 
 	@Override
@@ -54,9 +60,20 @@ public abstract class Unit extends Thing {
 		return super.keep() && health > 0;
 	}
 
+	public void moveTo(WorldPosition pos) {
+		int dist = location.getManhattanDistanceTo(pos);
+
+		if (dist == 1) {
+			location = pos;
+			actionCooldown = 20;
+		}
+	}
+
 	@Override
 	public void update(long ticks) {
 		super.update(ticks);
+
+		actionCooldown--;
 
 		age += ticks;
 

@@ -57,7 +57,7 @@ public class WorldState implements DeterministicRNG {
 			List<Person> townPeople = new ArrayList<Person>();
 
 			for (int j = 0; j < 50; ++j) {
-				Person p = new Person(this, new WorldPosition(i * 400 + 100 + rng.randomInt(70, i * 100000 + j * 100) - 35, 256 + rng.randomInt(70, i * 100000 + j * 100) - 35));
+				Person p = new Person(this, new WorldPosition(i * 400 + 100 + rng.randomInt(70, i * 100000 + j * 100) - 35, 256 + rng.randomInt(70, i * 100000 + j * 100 + 3898934) - 35));
 
 				things.add(p);
 				townPeople.add(p);
@@ -73,6 +73,10 @@ public class WorldState implements DeterministicRNG {
 
 	public void addThing(Thing thing) {
 		this.things.add(thing);
+	}
+
+	public long getCurrentTick() {
+		return currentTick;
 	}
 
 	public TerrainType getTerrainTypeAt(int x, int y) {
@@ -138,7 +142,7 @@ public class WorldState implements DeterministicRNG {
 		System.err.println("Seek to " + ticks + " complete, " + steps + " steps");
 	}
 
-	protected void update(long ticks) {
+	public void update(long ticks) {
 		currentTick += ticks;
 		// System.out.println("Now at tick " + currentTick);
 

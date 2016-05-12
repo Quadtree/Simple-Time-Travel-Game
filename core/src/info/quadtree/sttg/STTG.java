@@ -2,6 +2,8 @@ package info.quadtree.sttg;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,7 +15,7 @@ import info.quadtree.sttg.world.WorldPosition;
 import info.quadtree.sttg.world.WorldState;
 import info.quadtree.sttg.world.thing.Person;
 
-public class STTG extends ApplicationAdapter {
+public class STTG extends ApplicationAdapter implements InputProcessor {
 	final public static int CAMERA_HEIGHT = 40;
 	final public static int CAMERA_WIDTH = 40;
 
@@ -31,6 +33,8 @@ public class STTG extends ApplicationAdapter {
 
 	@Override
 	public void create() {
+		Gdx.input.setInputProcessor(this);
+
 		mainViewBuffer = new char[CAMERA_WIDTH][];
 		mainViewBufferColor = new Color[CAMERA_WIDTH][];
 		for (int x = 0; x < CAMERA_WIDTH; ++x) {
@@ -56,7 +60,7 @@ public class STTG extends ApplicationAdapter {
 		long miliTime = System.currentTimeMillis();
 
 		currentWorldState = new WorldState(0);
-		currentWorldState.seek(WorldState.TICKS_PER_YEAR * 100 + 500000);
+		currentWorldState.seek(WorldState.TICKS_PER_YEAR * 40 + 500000);
 
 		traveller = new Person(currentWorldState, new WorldPosition(100, 256));
 		currentWorldState.addThing(traveller);
@@ -64,6 +68,43 @@ public class STTG extends ApplicationAdapter {
 		long endTime = System.currentTimeMillis();
 
 		System.err.println("Startup in: " + (endTime - miliTime) + "ms");
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+
+		if (keycode == Keys.A) {
+			traveller.moveTo(traveller.getLocation().add(new WorldPosition(-1, 0)));
+		}
+		if (keycode == Keys.D) {
+			traveller.moveTo(traveller.getLocation().add(new WorldPosition(1, 0)));
+		}
+		if (keycode == Keys.W) {
+			traveller.moveTo(traveller.getLocation().add(new WorldPosition(0, -1)));
+		}
+		if (keycode == Keys.S) {
+			traveller.moveTo(traveller.getLocation().add(new WorldPosition(0, 1)));
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -95,6 +136,37 @@ public class STTG extends ApplicationAdapter {
 			}
 		}
 
+		fnt.setColor(Color.WHITE);
+		fnt.draw(batch, "Tick: " + currentWorldState.getCurrentTick(), 14, Gdx.graphics.getHeight() - ((CAMERA_HEIGHT + 1) * 18));
+
 		batch.end();
+
+		while (!traveller.canAct()) {
+			currentWorldState.update(1);
+		}
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
