@@ -71,9 +71,9 @@ public abstract class Unit extends Thing {
 		int ageYearsAtStatChange = (int) (nextStatChangeAge / WorldState.TICKS_PER_YEAR);
 
 		if (ageYearsAtStatChange >= getAgeOfAdulthoodYears()) {
-			maxHealth -= getAverageMaxMaxHealth() / (getAverageMaxAgeYears() - getAgeOfAdulthoodYears());
+			maxHealth -= getAverageMaxMaxHealth() / (getAverageMaxAgeYears() - getAgeOfAdulthoodYears()) * (worldState.randomInt(20000, location, baseSeed ^ age) / 10000.0);
 		} else {
-			maxHealth += getAverageMaxMaxHealth() / getAgeOfAdulthoodYears();
+			maxHealth += getAverageMaxMaxHealth() / getAgeOfAdulthoodYears() * (worldState.randomInt(20000, location, baseSeed ^ age) / 10000.0);
 		}
 
 		int change = worldState.randomInt((int) WorldState.TICKS_PER_YEAR, location, baseSeed ^ age);
