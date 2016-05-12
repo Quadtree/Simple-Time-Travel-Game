@@ -106,7 +106,7 @@ public class WorldState implements DeterministicRNG {
 		long steps = 0;
 
 		while (currentTick <= ticks) {
-			if (ticks - currentTick > WorldState.TICKS_PER_YEAR) {
+			if (ticks - currentTick > WorldState.TICKS_PER_YEAR + WorldState.TICKS_PER_DAY) {
 				update(WorldState.TICKS_PER_YEAR);
 			} else if (ticks - currentTick > WorldState.TICKS_PER_DAY) {
 				update(ticks - WorldState.TICKS_PER_DAY - currentTick);
