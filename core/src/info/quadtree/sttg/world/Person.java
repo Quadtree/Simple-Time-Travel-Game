@@ -28,6 +28,11 @@ public class Person extends Unit {
 		System.out.println(firstName + " " + lastName + " created at " + location);
 	}
 
+	@Override
+	public String getName() {
+		return firstName + " " + lastName;
+	}
+
 	public double getOpinionOf(String other) {
 		if (!opinionOf.containsKey(other))
 			opinionOf.put(other, 0.0);
@@ -37,5 +42,9 @@ public class Person extends Unit {
 
 	public void modOpinionOf(String other, double val) {
 		opinionOf.put(other, getOpinionOf(other) + val);
+	}
+
+	public void modOpinionOf(Unit other, double val) {
+		opinionOf.put(other.getName(), val);
 	}
 }

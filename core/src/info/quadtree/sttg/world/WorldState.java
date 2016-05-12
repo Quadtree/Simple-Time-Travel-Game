@@ -48,10 +48,20 @@ public class WorldState implements DeterministicRNG {
 		units = new ArrayList<Unit>();
 
 		for (int i = 0; i < 2; ++i) {
+
+			List<Person> townPeople = new ArrayList<Person>();
+
 			for (int j = 0; j < 50; ++j) {
 				Person p = new Person(this, new WorldPosition(i * 400 + 100 + rng.randomInt(70, i * 100000 + j * 100) - 35, 256 + rng.randomInt(70, i * 100000 + j * 100) - 35));
 
 				units.add(p);
+				townPeople.add(p);
+			}
+
+			for (Person p : townPeople) {
+				for (Person p2 : townPeople) {
+					p.modOpinionOf(p2, 50.0);
+				}
 			}
 		}
 	}
