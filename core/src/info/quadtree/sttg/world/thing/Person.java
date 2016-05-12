@@ -31,6 +31,7 @@ public class Person extends Unit {
 		System.out.println(firstName + " " + lastName + " created at " + location);
 
 		maxHealth = 0.001;
+		health = 0.001;
 	}
 
 	@Override

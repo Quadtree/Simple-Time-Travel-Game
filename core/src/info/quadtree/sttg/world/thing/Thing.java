@@ -13,6 +13,7 @@ public abstract class Thing {
 	}
 
 	public void destroyed() {
+
 	}
 
 	public abstract String getName();

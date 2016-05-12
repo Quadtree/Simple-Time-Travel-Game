@@ -26,6 +26,13 @@ public abstract class Unit extends Thing {
 		super(worldState, location);
 	}
 
+	@Override
+	public void destroyed() {
+		super.destroyed();
+
+		System.err.println(getName() + " has died at age " + getAgeYears());
+	}
+
 	protected int getAgeOfAdulthoodYears() {
 		return 20;
 	}
@@ -43,6 +50,11 @@ public abstract class Unit extends Thing {
 	}
 
 	@Override
+	public boolean keep() {
+		return super.keep() && health > 0;
+	}
+
+	@Override
 	public void update(long ticks) {
 		super.update(ticks);
 
@@ -51,6 +63,8 @@ public abstract class Unit extends Thing {
 		while (age >= nextStatChangeAge) {
 			yearlyStatChange();
 		}
+
+		health = Math.min(health, maxHealth);
 	}
 
 	private void yearlyStatChange() {

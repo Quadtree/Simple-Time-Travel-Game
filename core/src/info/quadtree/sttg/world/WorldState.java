@@ -127,6 +127,7 @@ public class WorldState implements DeterministicRNG {
 			if (units.get(i).keep()) {
 				units.get(i).update(ticks);
 			} else {
+				units.get(i).destroyed();
 				units.remove(i--);
 			}
 		}
