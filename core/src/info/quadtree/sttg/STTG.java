@@ -36,6 +36,7 @@ public class STTG extends ApplicationAdapter {
 		long miliTime = System.currentTimeMillis();
 
 		WorldState tws = new WorldState(0);
+		tws.seek(WorldState.TICKS_PER_YEAR * 100 + 500000);
 
 		long endTime = System.currentTimeMillis();
 

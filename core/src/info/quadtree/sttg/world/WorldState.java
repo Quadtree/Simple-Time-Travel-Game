@@ -94,9 +94,38 @@ public class WorldState implements DeterministicRNG {
 		return rng.randomLong(pos, additionalSeedMaterial ^ baseSeed ^ currentTick);
 	}
 
-	public void update(long ticks) {
-		for (Unit u : units) {
+	/**
+	 * Moves this world state forwards to a particular tick
+	 *
+	 * @param ticks
+	 */
+	public void seek(long ticks) {
+		if (ticks < currentTick)
+			throw new UnsupportedOperationException("An individual state cannot reverse time");
 
+		while (currentTick <= ticks) {
+			if (ticks - currentTick > WorldState.TICKS_PER_YEAR) {
+				update(WorldState.TICKS_PER_YEAR);
+			} else if (ticks - currentTick > WorldState.TICKS_PER_DAY) {
+				update(ticks - WorldState.TICKS_PER_DAY - currentTick);
+			} else {
+				update(1);
+			}
+		}
+
+		System.err.println("Seek to " + ticks + " complete");
+	}
+
+	protected void update(long ticks) {
+		currentTick += ticks;
+		// System.out.println("Now at tick " + currentTick);
+
+		for (int i = 0; i < units.size(); ++i) {
+			if (units.get(i).keep()) {
+				units.get(i).update(ticks);
+			} else {
+				units.remove(i--);
+			}
 		}
 	}
 

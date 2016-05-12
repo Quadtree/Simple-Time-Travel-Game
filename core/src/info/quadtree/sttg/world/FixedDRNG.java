@@ -19,7 +19,7 @@ public class FixedDRNG implements DeterministicRNG {
 	 */
 	@Override
 	public int randomInt(int maxExclusive, long additionalSeedMaterial) {
-		int ret = (int) (xorshift64s(additionalSeedMaterial) % maxExclusive);
+		int ret = (int) (Math.abs(xorshift64s(additionalSeedMaterial)) % maxExclusive);
 		return ret;
 	}
 
@@ -30,7 +30,7 @@ public class FixedDRNG implements DeterministicRNG {
 
 	@Override
 	public long randomLong(long additionalSeedMaterial) {
-		long ret = xorshift64s(additionalSeedMaterial);
+		long ret = Math.abs(xorshift64s(additionalSeedMaterial));
 		return ret;
 	}
 

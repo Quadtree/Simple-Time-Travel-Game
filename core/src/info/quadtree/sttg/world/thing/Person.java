@@ -9,18 +9,16 @@ import info.quadtree.sttg.world.WorldPosition;
 import info.quadtree.sttg.world.WorldState;
 
 public class Person extends Unit {
-	long baseSeed;
 
 	String firstName;
 	Gender gender;
 
 	String lastName;
 
-	WorldPosition location;
-
 	Map<String, Double> opinionOf;
 
 	public Person(WorldState world, WorldPosition location) {
+		super(world, location);
 		opinionOf = new HashMap<String, Double>();
 
 		baseSeed = world.randomLong(location, 0);
@@ -31,6 +29,8 @@ public class Person extends Unit {
 		lastName = NameGenerator.getInstance().generateName(Gender.Male, world.randomLong(location, baseSeed) + 3289843);
 
 		System.out.println(firstName + " " + lastName + " created at " + location);
+
+		maxHealth = 0.001;
 	}
 
 	@Override
@@ -51,5 +51,10 @@ public class Person extends Unit {
 
 	public void modOpinionOf(Unit other, double val) {
 		opinionOf.put(other.getName(), val);
+	}
+
+	@Override
+	public void update(long ticks) {
+		super.update(ticks);
 	}
 }
