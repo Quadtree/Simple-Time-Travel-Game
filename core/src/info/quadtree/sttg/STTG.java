@@ -14,8 +14,8 @@ import info.quadtree.sttg.world.WorldState;
 import info.quadtree.sttg.world.thing.Person;
 
 public class STTG extends ApplicationAdapter {
-	final static int CAMERA_HEIGHT = 40;
-	final static int CAMERA_WIDTH = 40;
+	final public static int CAMERA_HEIGHT = 40;
+	final public static int CAMERA_WIDTH = 40;
 
 	SpriteBatch batch;
 
@@ -68,10 +68,12 @@ public class STTG extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		WorldPosition cameraLocation = traveller.getLocation();
+
 		for (int x = 0; x < CAMERA_WIDTH; ++x) {
 			for (int y = 0; y < CAMERA_HEIGHT; ++y) {
-				int worldX = x - CAMERA_WIDTH / 2 + traveller.getLocation().x;
-				int worldY = y - CAMERA_HEIGHT / 2 + traveller.getLocation().y;
+				int worldX = x - CAMERA_WIDTH / 2 + cameraLocation.x;
+				int worldY = y - CAMERA_HEIGHT / 2 + cameraLocation.y;
 
 				TerrainType tt = currentWorldState.getTerrainTypeAt(worldX, worldY);
 
@@ -79,6 +81,8 @@ public class STTG extends ApplicationAdapter {
 				mainViewBufferColor[x][y] = tt.color;
 			}
 		}
+
+		currentWorldState.render(mainViewBuffer, mainViewBufferColor, cameraLocation);
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

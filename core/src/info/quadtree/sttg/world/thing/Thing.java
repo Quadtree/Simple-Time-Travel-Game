@@ -1,5 +1,7 @@
 package info.quadtree.sttg.world.thing;
 
+import com.badlogic.gdx.graphics.Color;
+
 import info.quadtree.sttg.world.WorldPosition;
 import info.quadtree.sttg.world.WorldState;
 
@@ -24,6 +26,9 @@ public abstract class Thing {
 
 	public boolean keep() {
 		return true;
+	}
+
+	public void render(char[][] buffer, Color[][] colorBuffer, WorldPosition cameraLocation) {
 	}
 
 	public void update(long ticks) {

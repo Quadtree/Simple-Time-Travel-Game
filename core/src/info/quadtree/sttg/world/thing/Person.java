@@ -3,6 +3,8 @@ package info.quadtree.sttg.world.thing;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.graphics.Color;
+
 import info.quadtree.sttg.world.Gender;
 import info.quadtree.sttg.world.NameGenerator;
 import info.quadtree.sttg.world.WorldPosition;
@@ -52,6 +54,18 @@ public class Person extends Unit {
 
 	public void modOpinionOf(Unit other, double val) {
 		opinionOf.put(other.getName(), val);
+	}
+
+	@Override
+	public void render(char[][] buffer, Color[][] colorBuffer, WorldPosition cameraLocation) {
+		super.render(buffer, colorBuffer, cameraLocation);
+
+		WorldPosition screenPosition = location.realToCamera(cameraLocation);
+
+		if (screenPosition.isOnScreen()) {
+			buffer[screenPosition.x][screenPosition.y] = 'H';
+			colorBuffer[screenPosition.x][screenPosition.y] = Color.WHITE;
+		}
 	}
 
 	@Override

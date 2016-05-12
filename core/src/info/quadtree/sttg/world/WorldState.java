@@ -3,6 +3,8 @@ package info.quadtree.sttg.world;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.graphics.Color;
+
 import info.quadtree.sttg.world.thing.Person;
 import info.quadtree.sttg.world.thing.Thing;
 
@@ -103,6 +105,12 @@ public class WorldState implements DeterministicRNG {
 	@Override
 	public long randomLong(WorldPosition pos, long additionalSeedMaterial) {
 		return rng.randomLong(pos, additionalSeedMaterial ^ baseSeed ^ currentTick);
+	}
+
+	public void render(char[][] buffer, Color[][] colorBuffer, WorldPosition cameraLocation) {
+		for (Thing t : things) {
+			t.render(buffer, colorBuffer, cameraLocation);
+		}
 	}
 
 	/**
