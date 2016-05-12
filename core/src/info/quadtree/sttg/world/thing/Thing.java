@@ -16,6 +16,10 @@ public abstract class Thing {
 
 	}
 
+	public WorldPosition getLocation() {
+		return location;
+	}
+
 	public abstract String getName();
 
 	public boolean keep() {

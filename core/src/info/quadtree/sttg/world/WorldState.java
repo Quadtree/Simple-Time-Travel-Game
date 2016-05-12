@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.quadtree.sttg.world.thing.Person;
-import info.quadtree.sttg.world.thing.Unit;
+import info.quadtree.sttg.world.thing.Thing;
 
 /**
  * The current state of the world, in macro terms. Typically multiple world
@@ -33,7 +33,7 @@ public class WorldState implements DeterministicRNG {
 
 	List<List<TerrainType>> terrain;
 
-	List<Unit> units;
+	List<Thing> things;
 
 	public WorldState(long baseSeed) {
 		this.baseSeed = baseSeed;
@@ -48,7 +48,7 @@ public class WorldState implements DeterministicRNG {
 			}
 		}
 
-		units = new ArrayList<Unit>();
+		things = new ArrayList<>();
 
 		for (int i = 0; i < 2; ++i) {
 
@@ -57,7 +57,7 @@ public class WorldState implements DeterministicRNG {
 			for (int j = 0; j < 50; ++j) {
 				Person p = new Person(this, new WorldPosition(i * 400 + 100 + rng.randomInt(70, i * 100000 + j * 100) - 35, 256 + rng.randomInt(70, i * 100000 + j * 100) - 35));
 
-				units.add(p);
+				things.add(p);
 				townPeople.add(p);
 			}
 
@@ -67,6 +67,17 @@ public class WorldState implements DeterministicRNG {
 				}
 			}
 		}
+	}
+
+	public void addThing(Thing thing) {
+		this.things.add(thing);
+	}
+
+	public TerrainType getTerrainTypeAt(int x, int y) {
+		if (x < 0 || y < 0 || x >= WORLD_SIZE || y >= WORLD_SIZE)
+			return TerrainType.WATER;
+
+		return terrain.get(x).get(y);
 	}
 
 	@Override
@@ -123,12 +134,12 @@ public class WorldState implements DeterministicRNG {
 		currentTick += ticks;
 		// System.out.println("Now at tick " + currentTick);
 
-		for (int i = 0; i < units.size(); ++i) {
-			if (units.get(i).keep()) {
-				units.get(i).update(ticks);
+		for (int i = 0; i < things.size(); ++i) {
+			if (things.get(i).keep()) {
+				things.get(i).update(ticks);
 			} else {
-				units.get(i).destroyed();
-				units.remove(i--);
+				things.get(i).destroyed();
+				things.remove(i--);
 			}
 		}
 	}

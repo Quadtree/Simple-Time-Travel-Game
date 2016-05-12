@@ -8,16 +8,36 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import info.quadtree.sttg.world.TerrainType;
+import info.quadtree.sttg.world.WorldPosition;
 import info.quadtree.sttg.world.WorldState;
+import info.quadtree.sttg.world.thing.Person;
 
 public class STTG extends ApplicationAdapter {
-	SpriteBatch batch;
-	BitmapFont fnt;
+	final static int CAMERA_HEIGHT = 40;
+	final static int CAMERA_WIDTH = 40;
 
+	SpriteBatch batch;
+
+	WorldState currentWorldState;
+
+	BitmapFont fnt;
 	Texture img;
+
+	char[][] mainViewBuffer;
+	Color[][] mainViewBufferColor;
+
+	Person traveller;
 
 	@Override
 	public void create() {
+		mainViewBuffer = new char[CAMERA_WIDTH][];
+		mainViewBufferColor = new Color[CAMERA_WIDTH][];
+		for (int x = 0; x < CAMERA_WIDTH; ++x) {
+			mainViewBuffer[x] = new char[CAMERA_HEIGHT];
+			mainViewBufferColor[x] = new Color[CAMERA_HEIGHT];
+		}
+
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 
@@ -35,8 +55,11 @@ public class STTG extends ApplicationAdapter {
 
 		long miliTime = System.currentTimeMillis();
 
-		WorldState tws = new WorldState(0);
-		tws.seek(WorldState.TICKS_PER_YEAR * 100 + 500000);
+		currentWorldState = new WorldState(0);
+		currentWorldState.seek(WorldState.TICKS_PER_YEAR * 100 + 500000);
+
+		traveller = new Person(currentWorldState, new WorldPosition(100, 256));
+		currentWorldState.addThing(traveller);
 
 		long endTime = System.currentTimeMillis();
 
@@ -45,15 +68,28 @@ public class STTG extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		for (int x = 0; x < CAMERA_WIDTH; ++x) {
+			for (int y = 0; y < CAMERA_HEIGHT; ++y) {
+				int worldX = x - CAMERA_WIDTH / 2 + traveller.getLocation().x;
+				int worldY = y - CAMERA_HEIGHT / 2 + traveller.getLocation().y;
+
+				TerrainType tt = currentWorldState.getTerrainTypeAt(worldX, worldY);
+
+				mainViewBuffer[x][y] = tt.visual;
+				mainViewBufferColor[x][y] = tt.color;
+			}
+		}
+
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(img, 30, 0);
 
-		batch.setColor(Color.BROWN);
-
-		fnt.setColor(Color.CYAN);
-		fnt.draw(batch, "Inv? ≈≈≈~≈", 50, 300);
+		for (int x = 0; x < CAMERA_WIDTH; ++x) {
+			for (int y = 0; y < CAMERA_HEIGHT; ++y) {
+				fnt.setColor(mainViewBufferColor[x][y]);
+				fnt.draw(batch, "" + mainViewBuffer[x][y], x * 14, Gdx.graphics.getHeight() - (y * 18));
+			}
+		}
 
 		batch.end();
 	}
