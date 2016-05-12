@@ -103,6 +103,8 @@ public class WorldState implements DeterministicRNG {
 		if (ticks < currentTick)
 			throw new UnsupportedOperationException("An individual state cannot reverse time");
 
+		long steps = 0;
+
 		while (currentTick <= ticks) {
 			if (ticks - currentTick > WorldState.TICKS_PER_YEAR) {
 				update(WorldState.TICKS_PER_YEAR);
@@ -111,9 +113,10 @@ public class WorldState implements DeterministicRNG {
 			} else {
 				update(1);
 			}
+			++steps;
 		}
 
-		System.err.println("Seek to " + ticks + " complete");
+		System.err.println("Seek to " + ticks + " complete, " + steps + " steps");
 	}
 
 	protected void update(long ticks) {
