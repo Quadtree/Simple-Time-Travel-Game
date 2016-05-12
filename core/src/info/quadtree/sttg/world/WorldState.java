@@ -3,6 +3,9 @@ package info.quadtree.sttg.world;
 import java.util.ArrayList;
 import java.util.List;
 
+import info.quadtree.sttg.world.thing.Person;
+import info.quadtree.sttg.world.thing.Unit;
+
 /**
  * The current state of the world, in macro terms. Typically multiple world
  * states will be kept around, for rewinding
@@ -89,6 +92,12 @@ public class WorldState implements DeterministicRNG {
 	@Override
 	public long randomLong(WorldPosition pos, long additionalSeedMaterial) {
 		return rng.randomLong(pos, additionalSeedMaterial ^ baseSeed ^ currentTick);
+	}
+
+	public void update(long ticks) {
+		for (Unit u : units) {
+
+		}
 	}
 
 }

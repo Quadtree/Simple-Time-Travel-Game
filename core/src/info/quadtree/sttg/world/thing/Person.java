@@ -1,7 +1,12 @@
-package info.quadtree.sttg.world;
+package info.quadtree.sttg.world.thing;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import info.quadtree.sttg.world.Gender;
+import info.quadtree.sttg.world.NameGenerator;
+import info.quadtree.sttg.world.WorldPosition;
+import info.quadtree.sttg.world.WorldState;
 
 public class Person extends Unit {
 	long baseSeed;
