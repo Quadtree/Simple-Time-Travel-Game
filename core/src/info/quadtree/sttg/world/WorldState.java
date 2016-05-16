@@ -46,7 +46,7 @@ public class WorldState implements DeterministicRNG {
 		for (int x = 0; x < WORLD_SIZE; ++x) {
 			terrain.add(new ArrayList<TerrainType>());
 			for (int y = 0; y < WORLD_SIZE; ++y) {
-				terrain.get(x).add(rng.randomInt(4, x, y, baseSeed + 3984893) == 0 ? TerrainType.GRASS : TerrainType.GRASS2);
+				terrain.get(x).add(rng.randomInt(4, x, y, baseSeed + 3984893) == 0 ? TerrainType.GRASS2 : TerrainType.GRASS);
 			}
 		}
 
