@@ -19,7 +19,7 @@ public class WorldState implements DeterministicRNG {
 	public static final long TICKS_PER_DAY = 864000;
 	public static final long TICKS_PER_YEAR = 315360000;
 
-	public static final int WORLD_SIZE = 512;
+	public static final int WORLD_SIZE = 6000;
 
 	long baseSeed;
 

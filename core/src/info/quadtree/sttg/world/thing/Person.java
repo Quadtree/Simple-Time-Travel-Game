@@ -39,7 +39,13 @@ public class Person extends Unit {
 
 	@Override
 	protected char getDisplayCharacter() {
-		return '#';
+		if (getAgeYears() < getAgeOfAdulthoodYears()) {
+			return '^';
+		} else if (getAgeYears() < getAverageMaxAgeYears() / 2) {
+			return '#';
+		} else {
+			return '%';
+		}
 	}
 
 	@Override
