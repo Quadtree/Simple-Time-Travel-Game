@@ -60,10 +60,12 @@ public class STTG extends ApplicationAdapter implements InputProcessor {
 
 		long miliTime = System.currentTimeMillis();
 
-		currentWorldState = new WorldState(0);
+		currentWorldState = new WorldState(1);
 		currentWorldState.seek(WorldState.TICKS_PER_YEAR * 75 + 500000);
 
 		traveller = new Traveller(currentWorldState, new WorldPosition(100, 256));
+
+		System.out.println("Traveller is " + traveller.getName());
 		currentWorldState.addThing(traveller);
 
 		long endTime = System.currentTimeMillis();

@@ -18,6 +18,14 @@ public abstract class Thing {
 
 	}
 
+	protected char getDisplayCharacter() {
+		return ' ';
+	}
+
+	protected Color getDisplayColor() {
+		return Color.WHITE;
+	}
+
 	public WorldPosition getLocation() {
 		return location;
 	}
@@ -29,6 +37,12 @@ public abstract class Thing {
 	}
 
 	public void render(char[][] buffer, Color[][] colorBuffer, WorldPosition cameraLocation) {
+		WorldPosition screenPosition = location.realToCamera(cameraLocation);
+
+		if (screenPosition.isOnScreen()) {
+			buffer[screenPosition.x][screenPosition.y] = getDisplayCharacter();
+			colorBuffer[screenPosition.x][screenPosition.y] = getDisplayColor();
+		}
 	}
 
 	public void update(long ticks) {

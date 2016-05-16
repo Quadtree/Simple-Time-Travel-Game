@@ -38,6 +38,16 @@ public class Person extends Unit {
 	}
 
 	@Override
+	protected char getDisplayCharacter() {
+		return '#';
+	}
+
+	@Override
+	protected Color getDisplayColor() {
+		return gender == Gender.Female ? Color.PINK : Color.BLUE;
+	}
+
+	@Override
 	public String getName() {
 		return firstName + " " + lastName;
 	}
@@ -55,18 +65,6 @@ public class Person extends Unit {
 
 	public void modOpinionOf(Unit other, double val) {
 		opinionOf.put(other.getName(), val);
-	}
-
-	@Override
-	public void render(char[][] buffer, Color[][] colorBuffer, WorldPosition cameraLocation) {
-		super.render(buffer, colorBuffer, cameraLocation);
-
-		WorldPosition screenPosition = location.realToCamera(cameraLocation);
-
-		if (screenPosition.isOnScreen()) {
-			buffer[screenPosition.x][screenPosition.y] = '#';
-			colorBuffer[screenPosition.x][screenPosition.y] = Color.WHITE;
-		}
 	}
 
 	@Override

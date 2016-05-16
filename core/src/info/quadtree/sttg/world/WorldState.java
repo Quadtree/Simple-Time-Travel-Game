@@ -136,7 +136,7 @@ public class WorldState implements DeterministicRNG {
 			} else if (ticks - currentTick > WorldState.TICKS_PER_DAY) {
 				update(ticks - WorldState.TICKS_PER_DAY - currentTick);
 			} else {
-				update(100);
+				update(600);
 			}
 			++steps;
 		}
