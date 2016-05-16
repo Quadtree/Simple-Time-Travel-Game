@@ -3,8 +3,6 @@ package info.quadtree.sttg.world.thing;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.badlogic.gdx.graphics.Color;
-
 import info.quadtree.sttg.world.Gender;
 import info.quadtree.sttg.world.NameGenerator;
 import info.quadtree.sttg.world.WorldPosition;
@@ -46,11 +44,6 @@ public class Person extends Unit {
 		} else {
 			return '%';
 		}
-	}
-
-	@Override
-	protected Color getDisplayColor() {
-		return gender == Gender.Female ? Color.PINK : Color.BLUE;
 	}
 
 	@Override
