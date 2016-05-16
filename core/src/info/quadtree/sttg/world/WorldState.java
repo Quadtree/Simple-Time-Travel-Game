@@ -128,18 +128,22 @@ public class WorldState implements DeterministicRNG {
 
 		long steps = 0;
 
+		long startTime = System.nanoTime();
+
 		while (currentTick <= ticks) {
 			if (ticks - currentTick > WorldState.TICKS_PER_YEAR + WorldState.TICKS_PER_DAY) {
 				update(WorldState.TICKS_PER_YEAR);
 			} else if (ticks - currentTick > WorldState.TICKS_PER_DAY) {
 				update(ticks - WorldState.TICKS_PER_DAY - currentTick);
 			} else {
-				update(1);
+				update(100);
 			}
 			++steps;
 		}
 
-		System.err.println("Seek to " + ticks + " complete, " + steps + " steps");
+		long endTime = System.nanoTime();
+
+		System.err.println("Seek to " + ticks + " complete, " + steps + " steps, took " + ((endTime - startTime) / 1000000.0) + "ms");
 	}
 
 	public void update(long ticks) {

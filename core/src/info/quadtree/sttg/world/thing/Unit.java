@@ -65,7 +65,7 @@ public abstract class Unit extends Thing {
 
 		if (dist == 1) {
 			location = pos;
-			actionCooldown = 20;
+			actionCooldown = 4;
 		}
 	}
 

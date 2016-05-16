@@ -14,6 +14,7 @@ import info.quadtree.sttg.world.TerrainType;
 import info.quadtree.sttg.world.WorldPosition;
 import info.quadtree.sttg.world.WorldState;
 import info.quadtree.sttg.world.thing.Person;
+import info.quadtree.sttg.world.thing.Traveller;
 
 public class STTG extends ApplicationAdapter implements InputProcessor {
 	final public static int CAMERA_HEIGHT = 40;
@@ -62,7 +63,7 @@ public class STTG extends ApplicationAdapter implements InputProcessor {
 		currentWorldState = new WorldState(0);
 		currentWorldState.seek(WorldState.TICKS_PER_YEAR * 75 + 500000);
 
-		traveller = new Person(currentWorldState, new WorldPosition(100, 256));
+		traveller = new Traveller(currentWorldState, new WorldPosition(100, 256));
 		currentWorldState.addThing(traveller);
 
 		long endTime = System.currentTimeMillis();

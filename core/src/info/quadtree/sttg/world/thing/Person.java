@@ -64,7 +64,7 @@ public class Person extends Unit {
 		WorldPosition screenPosition = location.realToCamera(cameraLocation);
 
 		if (screenPosition.isOnScreen()) {
-			buffer[screenPosition.x][screenPosition.y] = 'H';
+			buffer[screenPosition.x][screenPosition.y] = '#';
 			colorBuffer[screenPosition.x][screenPosition.y] = Color.WHITE;
 		}
 	}
