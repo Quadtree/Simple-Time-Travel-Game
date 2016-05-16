@@ -27,8 +27,8 @@ public class Person extends Unit {
 
 		gender = world.randomInt(2, location, baseSeed) == 0 ? Gender.Female : Gender.Male;
 
-		firstName = NameGenerator.getInstance().generateName(gender, world.randomLong(location, baseSeed));
-		lastName = NameGenerator.getInstance().generateName(Gender.Male, world.randomLong(location, baseSeed) + 3289843);
+		firstName = NameGenerator.getInstance().generateName(gender, world.randomLong(location, baseSeed), false);
+		lastName = NameGenerator.getInstance().generateName(Gender.Male, world.randomLong(location, baseSeed) + 3289843, true);
 
 		// System.out.println(firstName + " " + lastName + " created at " +
 		// location);

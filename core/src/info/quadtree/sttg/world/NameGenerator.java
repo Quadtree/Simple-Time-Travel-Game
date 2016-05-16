@@ -32,7 +32,7 @@ public class NameGenerator {
 		}
 	}
 
-	public String generateName(Gender gender, long rngSeed) {
+	public String generateName(Gender gender, long rngSeed, boolean lastName) {
 		Random rand = new Random(rngSeed);
 
 		String name = "";
@@ -43,8 +43,13 @@ public class NameGenerator {
 				name += syllables.get(rand.nextInt(syllables.size()));
 			}
 
-			if (name.length() > 8 || name.length() < 3)
-				continue;
+			if (!lastName) {
+				if (name.length() > 8 || name.length() < 3)
+					continue;
+			} else {
+				if (name.length() > 14 || name.length() < 6)
+					continue;
+			}
 
 			Gender nameGender = null;
 
